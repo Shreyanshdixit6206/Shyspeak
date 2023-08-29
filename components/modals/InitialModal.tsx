@@ -81,7 +81,7 @@ export const InitialModal = () => {
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
-                            )}/>
+                            )} />
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button disabled={isLoading} variant="primary">
