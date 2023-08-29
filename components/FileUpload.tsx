@@ -20,8 +20,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ value, endpoint, onChange }) =>
         return(
             <div className='relative h-20 w-20'>
                 <Image fill src={value} alt='Uploaded File' className='rounded-full' />
-                <Button onClick={() => onChange("")} className='bg-rose-500 text-white p-1 rounded-full abslute top-0 right-0 shadow-sm' type='button'>
-                    <X className='h-4 w-4'/>
+                <Button size="sm" onClick={() => onChange("")} className='bg-rose-500 hover:bg-rose-500/90 text-white p-0.5 aspect-square rounded-full absolute top-0 right-0 shadow-sm' type='button'>
+                    <X className='h-3 w-3'/>
                 </Button>
             </div>
         );
