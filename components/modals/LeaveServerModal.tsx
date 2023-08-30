@@ -4,43 +4,31 @@ import { useState } from "react";
 import axios from "axios";
 import { Check, Copy, RefreshCw } from "lucide-react";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
 
 import { useModal } from "@/hooks/useModalStore";
-import { useOrigin } from "@/hooks/useOrigin";
+import { useRouter } from "next/navigation";
 
 export const LeaveServerModal = () => {
-    const [copied, setCopied] = useState(false);
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const { isOpen, onClose, onOpen, type, data } = useModal();
-    const origin = useOrigin();
-
+    const { isOpen, onClose, type, data } = useModal();
     const isModalOpen = isOpen && type === "leaveServer";
     const { server } = data;
-    const inviteUrl = origin + "/invite/" + server?.inviteCode;
 
-    const onCopy = () => {
-        navigator.clipboard.writeText(inviteUrl);
-        setCopied(true);
-
-        setTimeout(() => {
-            setCopied(false);
-        }, 1000);
-    }
-
-    const onNew = async () => {
+    const onConfirm = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.patch("/api/servers/" + server?.id + "/invite-code");
 
-            onOpen("invite", { server: response.data });
+            await axios.patch("/api/servers" + server?.id + "/leave");
+
+            onClose();
+            router.refresh();
+            router.push("/");
         } catch (error) {
             console.error(error);
-        }
-        finally {
+        } finally {
             setIsLoading(false);
         }
     }
@@ -49,28 +37,21 @@ export const LeaveServerModal = () => {
         <Dialog open={isModalOpen} onOpenChange={() => onClose()}>
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
-                    <DialogTitle className="text-center text-zinc text-2xl">Invite Friends</DialogTitle>
+                    <DialogTitle className="text-center text-zinc text-2xl">Leave Server</DialogTitle>
+                    <DialogDescription className="text-center text-zinc-500">
+                        Are you sure you want to leave <span className="font-semibold text-indigo-500">{server?.name}</span>?
+                    </DialogDescription>
                 </DialogHeader>
-                <div className="p-6">
-                    <Label className="uppercase text-sx font-bold text-zinc-500 dark:text-secondary/70">Server invite link</Label>
-                    <div className="flex items-center mt-2 gap-x-2">
-                        <Input
-                            className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                            value={inviteUrl}
-                        />
-                        <Button disabled={isLoading} size="icon" onClick={onCopy}>
-                            {copied ? (
-                                <Check className="w-4 h-4 text-emerald-500" />
-                            ) : (
-                                <Copy className="w-4 h-4" />
-                            )}
+                <DialogFooter className="bg-gray-100 px-6 py-4">
+                    <div className="flex items-center jusitfy-">
+                        <Button disabled={isLoading} variant="ghost" onClick={onClose}>
+                            Cancel
+                        </Button>
+                        <Button disabled={isLoading} variant="primary" onClick={onConfirm}>
+                            Confirm
                         </Button>
                     </div>
-                    <Button variant="link" size="sm" className="text-xs text-zinc-500 mt-4" onClick={onNew}>
-                        Generate a new link
-                        <RefreshCw className="w-4 h-4 ml-2" />
-                    </Button>
-                </div>
+                </DialogFooter>
             </DialogContent>
         </Dialog>
     );
