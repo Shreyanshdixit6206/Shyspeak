@@ -45,7 +45,7 @@ const ServerHeader: React.FC<ServerHeaderProps> = ({ server, role }) => {
                 </DropdownMenuItem>
             )}
             {isModerator && (
-                <DropdownMenuItem className='px-3 py-2 cursor-pointer text-sm'>
+                <DropdownMenuItem className='px-3 py-2 cursor-pointer text-sm' onClick={() => onOpen("createChannel")}>
                     Create Channel
                     <PlusCircle className='h-4 w-4 ml-auto' />
                 </DropdownMenuItem>
