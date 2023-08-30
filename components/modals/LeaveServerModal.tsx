@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { Check, Copy, RefreshCw } from "lucide-react";
 
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
@@ -21,7 +20,7 @@ export const LeaveServerModal = () => {
         try {
             setIsLoading(true);
 
-            await axios.patch("/api/servers" + server?.id + "/leave");
+            await axios.patch("/api/servers/" + server?.id + "/leave");
 
             onClose();
             router.refresh();
