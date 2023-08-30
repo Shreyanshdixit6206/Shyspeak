@@ -33,7 +33,7 @@ const ServerHeader: React.FC<ServerHeaderProps> = ({ server, role }) => {
                 </DropdownMenuItem>
             )}
             {isAdmin && (
-                <DropdownMenuItem className='px-3 py-2 cursor-pointer text-sm'>
+                <DropdownMenuItem className='px-3 py-2 cursor-pointer text-sm' onClick={() => onOpen("editServer", { server })}>
                     Server Settings
                     <Settings className='h-4 w-4 ml-auto' />
                 </DropdownMenuItem>
