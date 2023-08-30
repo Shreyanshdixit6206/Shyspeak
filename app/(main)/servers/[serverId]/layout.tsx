@@ -4,7 +4,7 @@ import { currentProfile } from '@/lib/current-profile';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
-import ServersSIdeBar from '@/components/server/SIdeBar';
+import ServersSIdeBar from '@/components/server/SideBar';
 
 const MainLayout = async ({
   children,
