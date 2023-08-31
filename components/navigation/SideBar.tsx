@@ -28,7 +28,7 @@ async function SideBar() {
     });
 
     return (
-        <aside className='space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] py-3'>
+        <aside className='space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] bg-[#e3e5e8] py-3'>
             <NavigationActions />
             <Separator
                 className='h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto'
