@@ -22,7 +22,7 @@ export const useSocket = () => {
   return useContext(SocketContext);
 }
 
-export const SocketProvider = ({ children }: { children: React.ReactElement }) => {
+export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
 
