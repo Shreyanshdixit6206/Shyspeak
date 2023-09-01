@@ -3,7 +3,7 @@
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Plus } from 'lucide-react';
+import { Plus, Smile } from 'lucide-react';
 import qs from "query-string";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,8 @@ import { FormControl, FormField, FormItem } from '../ui/form';
 import { Input } from '../ui/input';
 import axios from 'axios';
 import { useModal } from '@/hooks/useModalStore';
+import { EmojiPicker } from '../EmojiPicker';
+import { useRouter } from 'next/navigation';
 
 interface ChatInputProps {
   apiUrl: string;
@@ -30,6 +32,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
   type,
 }) => {
   const { onOpen } = useModal();
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,6 +51,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
 
       await axios.post(url, values);
       form.reset();
+      router.refresh();
     } catch(error) {
       console.error(error);
     }
@@ -67,6 +71,9 @@ const ChatInput: React.FC<ChatInputProps> = ({
                     <Plus className='text-white dark:text-[#313338]' />
                   </button>
                   <Input placeholder={"Message " + (type === "channel" && "#") + name} disabled={isLoading} className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200" {...field} />
+                  <div className='absolute top-7 right-8'>
+                    <EmojiPicker onChange={emoji => field.onChange(field.value + emoji)} />
+                  </div>
                 </div>
               </FormControl>
             </FormItem>
