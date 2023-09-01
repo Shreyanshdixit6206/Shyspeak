@@ -1,20 +1,20 @@
 import qs from "query-string";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { useSocket } from "@/components/providers/socket.provider";
+import { useSocket } from "@/components/providers/socket.provider"; 
 
 interface ChatQueryProps {
   queryKey: string;
   apiUrl: string;
   paramKey: "channelId" | "conversationId";
   paramValue: string;
-}
+};
 
-export const useChatQuery = async ({
+export const useChatQuery = ({
   queryKey,
   apiUrl,
   paramKey,
-  paramValue,
+  paramValue
 }: ChatQueryProps) => {
   const { isConnected } = useSocket();
 
@@ -50,5 +50,5 @@ export const useChatQuery = async ({
     hasNextPage,
     isFetchingNextPage,
     status,
-  }
-};
+  };
+}
