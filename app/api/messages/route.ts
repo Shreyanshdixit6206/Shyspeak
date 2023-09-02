@@ -4,6 +4,7 @@ import { Message } from "@prisma/client";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 
+export const revalidate = 0;
 const MESSAGES_BATCH = 15;
 
 export async function GET(
