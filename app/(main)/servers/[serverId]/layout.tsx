@@ -4,7 +4,7 @@ import { currentProfile } from '@/lib/current-profile';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
-import ServersSIdeBar from '@/components/server/SideBar';
+import { ServerSidebar } from '@/components/server/SideBar';
 
 const MainLayout = async ({
   children,
@@ -13,7 +13,7 @@ const MainLayout = async ({
   children: React.ReactNode;
   params: { serverId: string }
 }) => {
-  const SideBar = await ServersSIdeBar({ serverId: params.serverId });
+  const SideBar = await ServerSidebar({ serverId: params.serverId });
   const profile = await currentProfile();
 
   if(!profile) {
