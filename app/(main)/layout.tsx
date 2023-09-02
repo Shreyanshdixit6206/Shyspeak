@@ -1,13 +1,13 @@
 import React from 'react'
 
-import SideBar from '@/components/navigation/SideBar';
+import { NavigationSidebar } from '@/components/navigation/SideBar';
 
 const MainLayout = async ({
   children
 }: {
   children: React.ReactNode;
 }) => {
-  const SideBarComponent: JSX.Element = await SideBar();
+  const SideBarComponent: JSX.Element = await NavigationSidebar();
 
   return (
     <div className='h-full'>
