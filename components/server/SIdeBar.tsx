@@ -29,7 +29,7 @@ const roleIconMap = {
   [MemberRole.ADMIN]: <ShieldAlert className='h-4 w-4 mr-2 text-rose-500' />
 }
 
-export const ServerSidebar = async ({
+const ServerSidebar = async ({
   serverId
 }: ServerSidebarProps) => {
   const profile = await currentProfile();
