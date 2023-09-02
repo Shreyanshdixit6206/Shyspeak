@@ -1,4 +1,6 @@
 import ChatHeader from "@/components/chat/Header";
+import ChatInput from "@/components/chat/Input";
+import ChatMessages from "@/components/chat/Messages";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
@@ -22,7 +24,7 @@ export default async function ConversationsPage({ params: { memberId: profileId,
   const currentMember = await db.member.findFirst({
     where: {
       serverId,
-      profileId,
+      profileId: profile.id,
     }, 
     include: {
       profile: true,
@@ -47,6 +49,27 @@ export default async function ConversationsPage({ params: { memberId: profileId,
   return (
     <main className="bg-white dark:bg-[#313338] flex flex-col h-full">
         {chatHeader}
+        <ChatMessages
+          name={currentMember.profile.name}
+          member={currentMember}
+          chatId={conversation.id}
+          apiUrl="/api/direct-messages"
+          socketUrl="/api/socket/direct-messages"
+          paramKey="conversationId"
+          paramValue={conversation.id}
+          type="conversation"
+          socketQuery={{
+            conversationId: conversation.id
+          }}
+        />
+        <ChatInput
+          name={otherMember.profile.name}
+          type="conversation"
+          apiUrl="/api/socket/direct-messages"
+          query={{
+            conversationId: conversation.id
+          }}
+        />
     </main>
   )
 }
