@@ -7,15 +7,15 @@ import { useParams, useRouter } from 'next/navigation';
 
 interface ServerSearchProps {
     data: {
-        label: string;
-        type: "channel" | "member";
-        data: {
-            icon: React.ReactNode;
-            name: string;
-            id: string;
-        }[];
-    }[] | undefined;
-}
+      label: string;
+      type: "channel" | "member",
+      data: {
+        icon: React.ReactNode;
+        name: string;
+        id: string;
+      }[] | undefined
+    }[]
+}  
 
 const ServerSearch: React.FC<ServerSearchProps> = ({ data }) => {
     const [open, setOpen] = useState(false);
