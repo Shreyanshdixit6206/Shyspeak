@@ -13,7 +13,7 @@ interface MediaRoomProps {
   audio: boolean;
 };
 
-const MediaRoom: React.FC<MediaRoomProps> = ({ chatId, video, audio }) => {
+export const MediaRoom: React.FC<MediaRoomProps> = ({ chatId, video, audio }) => {
   const { user } = useUser();
   const [token, setToken] = useState("");
 
@@ -33,7 +33,7 @@ const MediaRoom: React.FC<MediaRoomProps> = ({ chatId, video, audio }) => {
       } catch (error) {
         console.error(error);
       }
-    })
+    })();
   }, [user?.firstName, user?.lastName, chatId])
   
   if(token === ""){
