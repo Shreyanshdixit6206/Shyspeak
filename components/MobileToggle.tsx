@@ -3,11 +3,11 @@ import { Menu } from 'lucide-react'
 
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import { Button } from './ui/button'
-import SideBar from './navigation/SideBar'
+import { NavigationSidebar } from './navigation/SideBar'
 import { ServerSidebar } from './server/SideBar'
 
 const MobileToggle = async ({ serverId }: { serverId: string }) => {
-  const navigationSideBar = await SideBar();
+  const navigationSideBar = await NavigationSidebar();
   const serversSidebar = await ServerSidebar({ serverId });
   
   return (
